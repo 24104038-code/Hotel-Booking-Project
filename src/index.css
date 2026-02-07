@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Nunito+Sans:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Primary Brand - Nature Green */
+  --color-primary: 160 52% 21%;
+  --color-primary-light: 160 40% 30%;
+  --color-primary-dark: 160 60% 15%;
+  
+  /* Secondary - Ocean Blue */
+  --color-secondary: 195 38% 47%;
+  --color-secondary-light: 195 45% 60%;
+  
+  /* Accent - Golden */
+  --color-accent: 40 58% 55%;
+  --color-accent-dark: 40 65% 45%;
+  
+  /* Backgrounds */
+  --bg-base: 40 30% 98%;
+  --bg-elevated: 0 0% 100%;
+  --bg-cream: 40 40% 95%;
+  --bg-overlay: 160 52% 21%;
+  
+  /* Text */
+  --text-default: 160 40% 12%;
+  --text-subtle: 160 20% 35%;
+  --text-muted: 160 15% 50%;
+  --text-on-dark: 40 30% 98%;
+  
+  /* Semantic */
+  --semantic-success: 142 71% 45%;
+  --semantic-warning: 38 92% 50%;
+  --semantic-error: 0 84% 60%;
+  --semantic-info: 199 89% 48%;
+  
+  /* Borders */
+  --border-light: 40 20% 88%;
+  --border-default: 160 20% 80%;
+  
+  /* Shadows */
+  --shadow-color: 160 30% 20%;
+  
+  /* Radius */
+  --radius: 0.75rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 2rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-base text-default font-body antialiased;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-semibold text-balance;
+  }
+  
+  p {
+    @apply text-pretty;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+  
+  .card-nature {
+    @apply bg-elevated rounded-xl shadow-soft border border-light overflow-hidden transition-all duration-300 hover:shadow-medium hover:-translate-y-1;
+  }
+  
+  .btn-primary {
+    @apply bg-primary hover:bg-primary-dark text-on-dark font-semibold px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-lg inline-flex items-center justify-center gap-2;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary hover:bg-secondary-light text-on-dark font-semibold px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-lg inline-flex items-center justify-center gap-2;
+  }
+  
+  .btn-accent {
+    @apply bg-accent hover:bg-accent-dark text-default font-semibold px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-lg inline-flex items-center justify-center gap-2;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-primary text-primary hover:bg-primary hover:text-on-dark font-semibold px-6 py-3 rounded-lg transition-all duration-300 inline-flex items-center justify-center gap-2;
+  }
+  
+  .gradient-overlay {
+    @apply absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-transparent;
+  }
+  
+  .gradient-nature {
+    background: linear-gradient(135deg, hsl(var(--color-primary)) 0%, hsl(var(--color-secondary)) 100%);
+  }
+  
+  .leaf-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5c-4 8-15 15-25 15 10 0 21 7 25 15 4-8 15-15 25-15-10 0-21-7-25-15z' fill='%231B4D3E' fill-opacity='0.05'/%3E%3C/svg%3E");
+  }
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary;
+  }
+  
+  .input-nature {
+    @apply w-full px-4 py-3 rounded-lg border border-light bg-elevated focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200;
+  }
+  
+  .price-tag {
+    @apply text-accent-dark font-bold tabular-nums;
+  }
+}
+
+@layer utilities {
+  .bg-base { background-color: hsl(var(--bg-base)); }
+  .bg-elevated { background-color: hsl(var(--bg-elevated)); }
+  .bg-cream { background-color: hsl(var(--bg-cream)); }
+  .bg-primary { background-color: hsl(var(--color-primary)); }
+  .bg-primary-dark { background-color: hsl(var(--color-primary-dark)); }
+  .bg-primary-light { background-color: hsl(var(--color-primary-light)); }
+  .bg-secondary { background-color: hsl(var(--color-secondary)); }
+  .bg-secondary-light { background-color: hsl(var(--color-secondary-light)); }
+  .bg-accent { background-color: hsl(var(--color-accent)); }
+  .bg-accent-dark { background-color: hsl(var(--color-accent-dark)); }
+  
+  .text-default { color: hsl(var(--text-default)); }
+  .text-subtle { color: hsl(var(--text-subtle)); }
+  .text-muted { color: hsl(var(--text-muted)); }
+  .text-on-dark { color: hsl(var(--text-on-dark)); }
+  .text-primary { color: hsl(var(--color-primary)); }
+  .text-secondary { color: hsl(var(--color-secondary)); }
+  .text-accent { color: hsl(var(--color-accent)); }
+  .text-accent-dark { color: hsl(var(--color-accent-dark)); }
+  
+  .border-light { border-color: hsl(var(--border-light)); }
+  .border-primary { border-color: hsl(var(--color-primary)); }
+  
+  .shadow-soft {
+    box-shadow: 0 4px 20px -4px hsl(var(--shadow-color) / 0.1);
+  }
+  
+  .shadow-medium {
+    box-shadow: 0 8px 30px -6px hsl(var(--shadow-color) / 0.15);
+  }
+  
+  .shadow-strong {
+    box-shadow: 0 12px 40px -8px hsl(var(--shadow-color) / 0.2);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--bg-cream));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--color-primary) / 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--color-primary) / 0.5);
+}
+
+/* Animation classes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animation-delay-200 { animation-delay: 0.2s; }
+.animation-delay-400 { animation-delay: 0.4s; }
+.animation-delay-600 { animation-delay: 0.6s; }
