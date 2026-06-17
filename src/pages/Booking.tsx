@@ -11,7 +11,7 @@ import AddOnCard from '@/components/features/AddOnCard';
 import PriceSummary from '@/components/features/PriceSummary';
 import ContactButtons from '@/components/features/ContactButtons';
 import { useBooking } from '@/hooks/useBooking';
-import { ROOM_TYPES, ADD_ON_SERVICES, PAYMENT_METHODS, SITE_CONFIG } from '@/constants/config';
+import { ADD_ON_SERVICES, PAYMENT_METHODS, SITE_CONFIG } from '@/constants/config';
 import { getMinCheckInDate, getMinCheckOutDate, formatDate, cn, generateWhatsAppLink } from '@/lib/utils';
 
 const steps = ['Dates', 'Room', 'Add-ons', 'Details'];
@@ -34,12 +34,13 @@ export default function Booking() {
     prevStep,
     isStepValid,
     resetBooking,
+    rooms,
   } = useBooking();
 
   const [selectedPayment, setSelectedPayment] = useState('');
   const [bookingComplete, setBookingComplete] = useState(false);
 
-  const selectedRoom = ROOM_TYPES.find(r => r.id === formData.roomId);
+  const selectedRoom = rooms.find(r => r.id === formData.roomId);
 
   const handleBookingSubmit = () => {
     // Generate WhatsApp message with booking details
@@ -210,7 +211,7 @@ Payment Method: ${PAYMENT_METHODS.find(p => p.id === selectedPayment)?.name || '
                     Select Your Room
                   </h2>
                   <div className="grid sm:grid-cols-2 gap-6">
-                    {ROOM_TYPES.map(room => (
+                    {rooms.map(room => (
                       <RoomCard
                         key={room.id}
                         room={room}

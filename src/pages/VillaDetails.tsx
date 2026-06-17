@@ -3,8 +3,9 @@ import { ArrowRight, Home, Bed, Car, Droplets, Zap, Wifi, Check } from 'lucide-r
 import { Button } from '@/components/ui/button';
 import RoomCard from '@/components/features/RoomCard';
 import GalleryGrid from '@/components/features/GalleryGrid';
-import { ROOM_TYPES } from '@/constants/config';
+import { useRooms } from '@/hooks/useRooms';
 import { VILLA_IMAGES } from '@/constants/mockData';
+import { formatCurrency } from '@/lib/utils';
 
 const villaFeatures = [
   { icon: Home, label: '2-Storey Villa', description: 'Spacious modern construction' },
@@ -29,6 +30,7 @@ const includedAmenities = [
 ];
 
 export default function VillaDetails() {
+  const { rooms, minPrice } = useRooms();
   const allImages = [...VILLA_IMAGES.exterior, ...VILLA_IMAGES.interior];
 
   return (
@@ -131,7 +133,7 @@ export default function VillaDetails() {
                     Starting From
                   </h3>
                   <p className="font-display text-4xl font-bold text-accent mb-1">
-                    ₹2,000
+                    {formatCurrency(minPrice)}
                   </p>
                   <p className="text-on-dark/70 text-sm mb-6">per night</p>
                   <Link to="/booking" className="block">
@@ -175,7 +177,7 @@ export default function VillaDetails() {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {ROOM_TYPES.map(room => (
+            {rooms.map(room => (
               <RoomCard key={room.id} room={room} showSelectButton={false} />
             ))}
           </div>

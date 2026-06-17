@@ -89,7 +89,15 @@ export default function Footer() {
         <div className="container-custom py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-on-dark/60">
             <p>© {currentYear} {SITE_CONFIG.name}. All rights reserved.</p>
-            <p>Located at Five Falls Road, Courtallam, Tenkasi District</p>
+            <div className="flex items-center gap-4">
+              <p>Located at Five Falls Road, Courtallam</p>
+              <Link
+                to="/admin/login"
+                className="text-on-dark/40 hover:text-on-dark transition-colors text-xs"
+              >
+                Admin
+              </Link>
+            </div>
           </div>
         </div>
       </div>

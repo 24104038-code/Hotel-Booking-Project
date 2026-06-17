@@ -9,6 +9,9 @@ import Gallery from '@/pages/Gallery';
 import Location from '@/pages/Location';
 import Booking from '@/pages/Booking';
 import Contact from '@/pages/Contact';
+import AdminLogin from '@/pages/AdminLogin';
+import AdminDashboard from '@/pages/AdminDashboard';
+import ProtectedRoute from '@/components/features/ProtectedRoute';
 
 export default function App() {
   return (
@@ -24,6 +27,15 @@ export default function App() {
           <Route path="booking" element={<Booking />} />
           <Route path="contact" element={<Contact />} />
         </Route>
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <Toaster position="top-center" richColors />
     </BrowserRouter>

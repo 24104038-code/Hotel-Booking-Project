@@ -7,10 +7,12 @@ import RoomCard from '@/components/features/RoomCard';
 import TouristSpotCard from '@/components/features/TouristSpotCard';
 import TestimonialCard from '@/components/features/TestimonialCard';
 import ContactButtons from '@/components/features/ContactButtons';
-import { ROOM_TYPES } from '@/constants/config';
+import { useRooms } from '@/hooks/useRooms';
 import { VILLA_IMAGES, TOURIST_SPOTS, TESTIMONIALS } from '@/constants/mockData';
 
 export default function Home() {
+  const { rooms } = useRooms();
+
   return (
     <div>
       {/* Hero Section */}
@@ -109,7 +111,7 @@ export default function Home() {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {ROOM_TYPES.map(room => (
+            {rooms.map(room => (
               <RoomCard key={room.id} room={room} showSelectButton={false} />
             ))}
           </div>

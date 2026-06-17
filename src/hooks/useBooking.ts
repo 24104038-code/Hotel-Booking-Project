@@ -1,5 +1,6 @@
 import { useState, useMemo, useCallback } from 'react';
-import { ROOM_TYPES, ADD_ON_SERVICES } from '@/constants/config';
+import { ADD_ON_SERVICES } from '@/constants/config';
+import { useRooms } from '@/hooks/useRooms';
 import type { BookingFormData, BookingCalculation } from '@/types';
 
 const initialFormData: BookingFormData = {
@@ -14,6 +15,7 @@ const initialFormData: BookingFormData = {
 };
 
 export function useBooking() {
+  const { rooms } = useRooms();
   const [formData, setFormData] = useState<BookingFormData>(initialFormData);
   const [step, setStep] = useState(1);
 
@@ -31,9 +33,8 @@ export function useBooking() {
   }, []);
 
   const calculation = useMemo<BookingCalculation>(() => {
-    const selectedRoom = ROOM_TYPES.find(r => r.id === formData.roomId);
-    
-    // Calculate number of nights
+    const selectedRoom = rooms.find(r => r.id === formData.roomId);
+
     let nights = 1;
     if (formData.checkIn && formData.checkOut) {
       const checkIn = new Date(formData.checkIn);
@@ -44,7 +45,6 @@ export function useBooking() {
 
     const roomTotal = selectedRoom ? selectedRoom.pricePerDay * nights : 0;
 
-    // Calculate add-ons
     const breakdown: { label: string; amount: number }[] = [];
     let addOnsTotal = 0;
 
@@ -59,14 +59,13 @@ export function useBooking() {
       const addOn = ADD_ON_SERVICES.find(a => a.id === addOnId);
       if (addOn) {
         let addOnAmount = addOn.price;
-        
-        // Calculate based on unit type
+
         if (addOn.unit.includes('per person')) {
           addOnAmount = addOn.price * formData.guests * nights;
         } else if (addOn.unit.includes('per night')) {
           addOnAmount = addOn.price * nights;
         }
-        
+
         addOnsTotal += addOnAmount;
         breakdown.push({
           label: `${addOn.name}${addOn.unit.includes('per person') ? ` (${formData.guests} guests × ${nights} days)` : ''}`,
@@ -82,7 +81,7 @@ export function useBooking() {
       grandTotal: roomTotal + addOnsTotal,
       breakdown,
     };
-  }, [formData]);
+  }, [formData, rooms]);
 
   const nextStep = useCallback(() => {
     setStep(prev => Math.min(prev + 1, 4));
@@ -104,7 +103,7 @@ export function useBooking() {
       case 2:
         return !!formData.roomId;
       case 3:
-        return true; // Add-ons are optional
+        return true;
       case 4:
         return formData.guestName && formData.guestPhone;
       default:
@@ -123,5 +122,6 @@ export function useBooking() {
     prevStep,
     resetBooking,
     isStepValid,
+    rooms,
   };
 }
